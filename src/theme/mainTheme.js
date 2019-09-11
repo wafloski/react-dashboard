@@ -1,8 +1,7 @@
 export const theme = {
-    primary: '#EBA63F',
-    secondary: '#3CBCC3',
-    tertiary: '#438945',
-    quaternary: '#E40C2B',
+    note: '#EBA63F',
+    twitter: '#3CBCC3',
+    article: '#438945',
     darkColor: '#1D1D2C',
     lightColor: '#F7F4E9',
     fontWeight: {

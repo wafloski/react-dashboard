@@ -2,7 +2,7 @@ import styled, { css } from "styled-components";
 
 const Button  = styled.button`
     padding: 0;
-    background-color: ${({theme}) => theme.primary};
+    background-color: ${({theme}) => theme.note};
     width: 220px;
     height: 48px;
     border-radius: 48px;
@@ -19,7 +19,7 @@ const Button  = styled.button`
             height: 32px;
             font-size: 12px;
         `
-    )}     
+    )}
 `;
 
 export default Button;
