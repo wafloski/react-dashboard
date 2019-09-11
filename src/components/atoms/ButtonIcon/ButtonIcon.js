@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 const ButtonIcon = styled.button`
+    display: block;
     width: 64px;
     height: 64px;
     border-radius: 20px;
@@ -8,8 +9,11 @@ const ButtonIcon = styled.button`
     background-position: 50% 50%;
     background-size: 40%;
     background-repeat: no-repeat;
-    background-color: ${({ theme, active }) => ( active ? theme.lightColor : 'transparent' )};
     border: 0;
+    
+    &.active {
+        background-color: ${({theme}) => theme.lightColor};
+    }
 `;
 
 export default ButtonIcon;
