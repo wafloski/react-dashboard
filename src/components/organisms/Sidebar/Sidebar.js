@@ -13,7 +13,7 @@ const StyledSidebar = styled.nav`
     top: 0;
     width: 100px;
     height: 100vh;
-    background-color: ${({ theme }) => theme.note};
+    background-color: ${({ theme, activeColor }) => (activeColor ? theme[activeColor] : theme.note)};
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -25,8 +25,8 @@ const StyledLogo = styled.p`
     height: 50px;
     text-align: center;
     text-transform: uppercase;
-    color: ${({theme}) => theme.darkColor};
-    font-weight: ${({theme}) => theme.fontWeight.bold};
+    color: ${({ theme }) => theme.darkColor};
+    font-weight: 600;
 `;
 
 const StyledLinkList = styled.ul`
@@ -39,8 +39,8 @@ const StyledLogoutButton = styled(ButtonIcon)`
     margin-top: auto;
 `;
 
-const Sidebar = () => (
-    <StyledSidebar>
+const Sidebar = ({pageType}) => (
+    <StyledSidebar activeColor={pageType}>
         <StyledLogo>wfx</StyledLogo>
         <StyledLinkList>
             <li>

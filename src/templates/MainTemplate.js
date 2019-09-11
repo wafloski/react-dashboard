@@ -7,9 +7,7 @@ import { theme } from 'theme/mainTheme';
 const MainTemplate = ({children}) => (
     <>
         <GlobalStyle/>
-        <ThemeProvider theme={theme}>
-            {children}
-        </ThemeProvider>
+        <ThemeProvider theme={theme}>{children}</ThemeProvider>
     </>
 );
 
