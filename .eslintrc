@@ -9,7 +9,8 @@
     "jest": true
   },
   "globals": {
-    "document": true
+    "document": true,
+    "window": true
   },
   "rules": {
     "import/prefer-default-export": 0,
