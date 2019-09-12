@@ -2,7 +2,7 @@ import styled, { css } from "styled-components";
 
 const Button  = styled.button`
     padding: 0;
-    background-color: ${({theme}) => theme.note};
+    background-color: ${({ activecolor, theme }) => theme[activecolor]};
     width: 220px;
     height: 48px;
     border-radius: 48px;
@@ -11,6 +11,8 @@ const Button  = styled.button`
     font-weight: 600;
     text-transform: uppercase;
     font-family: 'Poppins',sans-serif;
+    text-decoration: none;
+    color: ${({theme}) => theme.darkColor};
     
     ${({secondary}) => (
         secondary && css`

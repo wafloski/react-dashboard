@@ -1,16 +1,18 @@
 import React from 'react';
-import LoggedUserTemplate from "templates/LoggedUserTemplate";
+import GridViewTemplate from "templates/GridViewTemplate";
 import Card from "components/molecules/Card/Card";
 
 const twitters = [
     {
+        id: 1,
         title: 'Hello Roman',
         content:
             'Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus, tempora quibusdam natus modi tempore esse adipisci, dolore odit animi',
         created: '1 day',
-        twitterName: 'hello_roman',
+        twitterName: 'javascript',
     },
     {
+        id: 2,
         title: 'Redux guy',
         content:
             'Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus, tempora quibusdam natus modi tempore esse adipisci, dolore odit animi',
@@ -18,6 +20,7 @@ const twitters = [
         twitterName: 'dan_abramov',
     },
     {
+        id: 3,
         title: 'React router stuff',
         content:
             'Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus, tempora quibusdam natus modi tempore esse adipisci, dolore odit animi',
@@ -25,6 +28,7 @@ const twitters = [
         twitterName: 'mjackson',
     },
     {
+        id: 4,
         title: 'Super animacje!',
         content:
             'Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus, tempora quibusdam natus modi tempore esse adipisci, dolore odit animi',
@@ -34,18 +38,19 @@ const twitters = [
 ];
 
 const Twitters = () => (
-    <LoggedUserTemplate pageType="twitter">
-        { twitters.map(item => (
+    <GridViewTemplate pageType="twitters">
+        { twitters.map(({ title, content, twitterName, created, id }) => (
             <Card
-                cardType="twitter"
-                title={item.title}
-                content={item.content}
-                twitterName={item.twitterName}
-                created={item.created}
-                key={item.title}
+                id={id}
+                cardType="twitters"
+                title={title}
+                content={content}
+                twitterName={twitterName}
+                created={created}
+                key={id}
             />
         ))}
-    </LoggedUserTemplate>
+    </GridViewTemplate>
 );
 
 export default Twitters;

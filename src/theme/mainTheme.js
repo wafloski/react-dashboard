@@ -1,7 +1,7 @@
 export const theme = {
-    note: '#EBA63F',
-    twitter: '#3CBCC3',
-    article: '#438945',
+    notes: '#EBA63F',
+    twitters: '#3CBCC3',
+    articles: '#438945',
     darkColor: '#1D1D2C',
     lightColor: '#F7F4E9',
     fontWeight: {
