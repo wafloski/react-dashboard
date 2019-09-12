@@ -55,7 +55,9 @@ class Details extends Component {
 }
 
 Details.propTypes = {
-    match: PropTypes.string.isRequired,
+    match: PropTypes.shape({
+        path: PropTypes.string.isRequired,
+    }).isRequired,
 };
 
 export default Details;
