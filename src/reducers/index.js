@@ -36,7 +36,7 @@ const initialState = {
     twitters: [
         {
             id: 1,
-            title: 'Hello Roman',
+            title: 'Hello Waflitto',
             content:
                 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus, tempora quibusdam natus modi tempore esse adipisci, dolore odit animi',
             created: '1 day',
@@ -100,7 +100,17 @@ const initialState = {
 };
 
 const rootReducer = (state = initialState, action) => {
-    return state;
+    switch (action.type) {
+        case ('REMOVE_ITEM'):
+            return {
+                ...state,
+                [action.payload.itemType]: [
+                    ...state[action.payload.itemType].filter(item => item.id !== action.payload.id)
+                ]
+            };
+        default:
+            return state;
+    }
 };
 
 export default rootReducer;
