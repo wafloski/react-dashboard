@@ -2,20 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Sidebar from "components/organisms/Sidebar/Sidebar";
 
-const LoggedUserTemplate = ({children, pageType}) => (
+const LoggedUserTemplate = ({children}) => (
     <>
-        <Sidebar pageType={pageType}/>
+        <Sidebar/>
         {children}
     </>
 );
 
 LoggedUserTemplate.propTypes = {
-    children: PropTypes.oneOfType([PropTypes.element, PropTypes.node]),
-    pageType: PropTypes.oneOf(['notes', 'twitters', 'articles'])
-};
-
-LoggedUserTemplate.defaultProps = {
-    pageType: 'notes'
+    children: PropTypes.oneOfType([PropTypes.element, PropTypes.node])
 };
 
 export default LoggedUserTemplate;

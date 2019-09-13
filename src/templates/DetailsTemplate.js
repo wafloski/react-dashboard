@@ -6,6 +6,7 @@ import LoggedUserTemplate from 'templates/LoggedUserTemplate';
 import Heading from 'components/atoms/Heading/Heading';
 import Paragraph from 'components/atoms/Paragraph/Paragraph';
 import Button from 'components/atoms/Button/Button';
+import withContext from 'hoc/withContext';
 
 const StyledWrapper = styled.div`
   padding: 25px 150px 25px 70px;
@@ -56,8 +57,8 @@ const StyledButton = styled(Button)`
   padding: 10px 30px;
 `;
 
-const DetailsTemplate = ({ pageType, title, content, created, articleUrl, twitterName }) => (
-    <LoggedUserTemplate pageType={pageType}>
+const DetailsTemplate = ({ pageContext, title, content, created, articleUrl, twitterName }) => (
+    <LoggedUserTemplate pageContext={pageContext}>
         <StyledWrapper>
             <StyledPageHeader>
                 <StyledHeading big as="h1">
@@ -66,11 +67,11 @@ const DetailsTemplate = ({ pageType, title, content, created, articleUrl, twitte
                 <StyledParagraph>{created}</StyledParagraph>
             </StyledPageHeader>
             <Paragraph>{content}</Paragraph>
-            {pageType === 'articles' && <StyledLink href={articleUrl}>Open article</StyledLink>}
-            {pageType === 'twitters' && (
+            {pageContext === 'articles' && <StyledLink href={articleUrl}>Open article</StyledLink>}
+            {pageContext === 'twitters' && (
                 <StyledImage alt={title} src={`https://avatars.io/twitter/${twitterName}`} />
             )}
-            <StyledButton as={Link} to={`/${pageType}`} activecolor={pageType}>
+            <StyledButton as={Link} to={`/${pageContext}`} activecolor={pageContext}>
                 save / close
             </StyledButton>
         </StyledWrapper>
@@ -78,7 +79,7 @@ const DetailsTemplate = ({ pageType, title, content, created, articleUrl, twitte
 );
 
 DetailsTemplate.propTypes = {
-    pageType: PropTypes.string.isRequired,
+    pageContext: PropTypes.string.isRequired,
     title: PropTypes.string,
     created: PropTypes.string,
     content: PropTypes.string,
@@ -94,4 +95,4 @@ DetailsTemplate.defaultProps = {
     twitterName: '',
 };
 
-export default DetailsTemplate;
+export default withContext(DetailsTemplate);
