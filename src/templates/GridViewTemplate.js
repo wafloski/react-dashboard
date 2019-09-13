@@ -44,6 +44,7 @@ const StyledButtonIcon = styled(ButtonIcon)`
     background-color: ${({ activecolor, theme }) => theme[activecolor]};
     background-size: 30%;
     border-radius: 50%;
+    z-index: 11;
 `;
 
 class GridViewTemplate extends Component {
