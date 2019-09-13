@@ -13,6 +13,7 @@ const Button  = styled.button`
     font-family: 'Poppins',sans-serif;
     text-decoration: none;
     color: ${({theme}) => theme.darkColor};
+    cursor: pointer;
     
     ${({secondary}) => (
         secondary && css`
