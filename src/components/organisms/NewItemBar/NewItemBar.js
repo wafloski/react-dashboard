@@ -7,6 +7,7 @@ import Heading from 'components/atoms/Heading/Heading';
 import withContext from 'hoc/withContext';
 import { connect } from 'react-redux';
 import { addItem as addItemAction } from  'actions';
+import { Formik, Form } from 'formik';
 
 const StyledWrapper = styled.div`
     z-index: 10;
@@ -25,6 +26,11 @@ const StyledWrapper = styled.div`
     transition: transform .25s ease;
 `;
 
+const StyledForm = styled(Form)`
+    display: flex;
+    flex-direction: column;
+`;
+
 const StyledTextarea = styled(Input)`
     border-radius: 15px;
     margin: 30px 0 50px;
@@ -35,16 +41,74 @@ const StyledInput = styled(Input)`
     margin-top: 30px;
 `;
 
-const NewItemBar = ({pageContext, isVisible, addItem}) => (
+const NewItemBar = ({pageContext, isVisible, addItem, handleClose}) => (
     <StyledWrapper isVisible={isVisible} activecolor={pageContext}>
         <Heading big>Create new {pageContext}</Heading>
-        <StyledInput placeholder="title" />
-        { pageContext === 'twitters' && <StyledInput placeholder='Account Name eg. dan_abramov' /> }
-        { pageContext === 'articles' && <StyledInput placeholder="link"/> }
-        <StyledTextarea as="textarea" placeholder="content"/>
-        <Button onClick={() => addItem(pageContext, {title: 'dsfuiodsfuds', content: 'dasdasdsad'})} activecolor={pageContext}>Add item</Button>
+        <Formik
+            initialValues={{title: '', content: '', articleUrl: '', twitterName: '', created: ''}}
+            onSubmit = {(values) => {
+                addItem(pageContext, values);
+                handleClose();
+            }}
+        >
+            {({ values, errors, touched, handleChange, handleBlur, handleSubmit, isSubmitting }) => (
+                <StyledForm>
+                    <StyledInput
+                        type="text"
+                        name="title"
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        value={values.title}
+                        placeholder="title"
+                    />
+                    { pageContext === 'twitters' &&
+                        <StyledInput
+                            type="text"
+                            name="twitterName"
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            value={values.twitterName}
+                            placeholder="Account Name eg. dan_abramov"
+                        />
+                    }
+                    { pageContext === 'articles' &&
+                        <StyledInput
+                            type="text"
+                            name="articleUrl"
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            value={values.articleUrl}
+                            placeholder="Article link"
+                        />
+                    }
+                    <StyledTextarea
+                        as="textarea"
+                        name="content"
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        value={values.content}
+                        placeholder="Content"
+                    />
+                    <Button type="submit" activecolor={pageContext}>Add item</Button>
+                </StyledForm>
+            )}
+
+        </Formik>
+
     </StyledWrapper>
 );
+
+NewItemBar.propTypes = {
+    pageContext: PropTypes.oneOf(['notes', 'twitters', 'articles']),
+    isVisible: PropTypes.bool,
+    addItem: PropTypes.func.isRequired,
+    handleClose: PropTypes.func.isRequired,
+};
+
+NewItemBar.defaultProps = {
+    pageContext: 'notes',
+    isVisible: false,
+};
 
 const mapDispatchToProps = dispatch => ({
     addItem: (itemType, itemContent) => dispatch(addItemAction(itemType,itemContent))

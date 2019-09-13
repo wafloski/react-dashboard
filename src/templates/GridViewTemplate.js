@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import styled from "styled-components";
 import LoggedUserTemplate from 'templates/LoggedUserTemplate';
-import Input from "components/atoms/Input/Input";
+// import Input from "components/atoms/Input/Input";
 import Heading from "components/atoms/Heading/Heading";
 import Paragraph from "components/atoms/Paragraph/Paragraph";
 import ButtonIcon from 'components/atoms/ButtonIcon/ButtonIcon';
@@ -52,7 +52,7 @@ class GridViewTemplate extends Component {
         isNewItemBarVisible: false
     };
 
-    handleNewItemBarToggle = () => this.setState(prevState => ({ isNewItemBarVisible: !prevState.isNewItemBarVisible }));
+    toggleNewItemBar = () => this.setState(prevState => ({ isNewItemBarVisible: !prevState.isNewItemBarVisible }));
 
     render() {
         const { children, pageContext } = this.props;
@@ -62,15 +62,14 @@ class GridViewTemplate extends Component {
             <LoggedUserTemplate>
                 <StyledWrapper>
                     <StyledPageHeader>
-                        <Input search placeholder="search"/>
                         <StyledHeading big as="h1">{pageContext} </StyledHeading>
                         <StyledParagraph>9 {pageContext} </StyledParagraph>
                     </StyledPageHeader>
                     <StyledGrid>
                         {children}
                     </StyledGrid>
-                    <StyledButtonIcon icon={plusIcon} activecolor={pageContext} onClick={this.handleNewItemBarToggle}/>
-                    <NewItemBar isVisible={isNewItemBarVisible}/>
+                    <StyledButtonIcon icon={plusIcon} activecolor={pageContext} onClick={this.toggleNewItemBar}/>
+                    <NewItemBar handleClose={this.toggleNewItemBar} isVisible={isNewItemBarVisible}/>
                 </StyledWrapper>
             </LoggedUserTemplate>
         );

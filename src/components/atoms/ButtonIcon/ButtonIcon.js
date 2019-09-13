@@ -10,6 +10,7 @@ const ButtonIcon = styled.button`
     background-size: 40%;
     background-repeat: no-repeat;
     border: 0;
+    cursor: pointer;
     
     &.active {
         background-color: ${({theme}) => theme.lightColor};
