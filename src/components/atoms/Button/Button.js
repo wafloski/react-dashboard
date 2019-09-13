@@ -14,6 +14,7 @@ const Button  = styled.button`
     text-decoration: none;
     color: ${({theme}) => theme.darkColor};
     cursor: pointer;
+    transition: ${({theme}) => theme.hoverTransitionTime};
     
     ${({secondary}) => (
         secondary && css`
@@ -23,6 +24,10 @@ const Button  = styled.button`
             font-size: 12px;
         `
     )}
+    
+    :hover {
+        opacity: ${({theme}) => theme.hoverOpacity};
+    }
 `;
 
 export default Button;

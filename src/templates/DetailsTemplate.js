@@ -72,7 +72,7 @@ const DetailsTemplate = ({ pageContext, title, content, created, articleUrl, twi
                 <StyledImage alt={title} src={`https://avatars.io/twitter/${twitterName}`} />
             )}
             <StyledButton as={Link} to={`/${pageContext}`} activecolor={pageContext}>
-                save / close
+                go back
             </StyledButton>
         </StyledWrapper>
     </LoggedUserTemplate>

@@ -11,9 +11,14 @@ const ButtonIcon = styled.button`
     background-repeat: no-repeat;
     border: 0;
     cursor: pointer;
+    transition: ${({theme}) => theme.hoverTransitionTime};
     
     &.active {
         background-color: ${({theme}) => theme.lightColor};
+    }
+    
+    :hover {
+        opacity: ${({theme}) => theme.hoverOpacity};
     }
 `;
 

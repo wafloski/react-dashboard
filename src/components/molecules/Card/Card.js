@@ -27,6 +27,11 @@ const StyledInnerWrapper = styled.div`
     
     :first-of-type {
         z-index: 1;
+        cursor: pointer;
+        transition: ${({theme}) => theme.hoverTransitionTime};
+        :hover {
+            opacity: ${({theme}) => theme.hoverOpacity};
+        }
     }
     
     ${({flex}) => flex && css`

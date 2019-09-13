@@ -17,5 +17,8 @@ export const theme = {
         l: '2.4rem',
         xl: '3.6rem',
         xxl: '4.8rem'
-    }
+    },
+    fontFamily: '"Poppins", sans-serif',
+    hoverTransitionTime: '.3s',
+    hoverOpacity: '.8'
 }

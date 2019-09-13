@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import Input from 'components/atoms/Input/Input';
 import Button from 'components/atoms/Button/Button';
 import Heading from 'components/atoms/Heading/Heading';
+import Paragraph from 'components/atoms/Paragraph/Paragraph';
 import withContext from 'hoc/withContext';
 import { connect } from 'react-redux';
 import { addItem as addItemAction } from  'actions';
@@ -19,7 +20,7 @@ const StyledWrapper = styled.div`
     height: 100vh;
     width: 600px;
     background-color: #fff;
-    padding: 100px 60px;
+    padding: 50px 60px;
     border-left: 8px solid ${({ theme, activecolor }) => theme[activecolor]};
     box-shadow: -10px 0 10px rgba(0,0,0,0.3);
     transform: translate(${({ isVisible }) => ( isVisible ? '0' : '100%')});
@@ -33,12 +34,20 @@ const StyledForm = styled(Form)`
 
 const StyledTextarea = styled(Input)`
     border-radius: 15px;
-    margin: 30px 0 50px;
     height: 30vh;
+    margin-top: 30px
 `;
 
 const StyledInput = styled(Input)`
     margin-top: 30px;
+`;
+
+const StyledParagraph = styled(Paragraph)`
+    color: coral;
+`;
+
+const StyledButton = styled(Button)`
+    margin-top: 40px;
 `;
 
 const NewItemBar = ({pageContext, isVisible, addItem, handleClose}) => (
@@ -46,8 +55,27 @@ const NewItemBar = ({pageContext, isVisible, addItem, handleClose}) => (
         <Heading big>Create new {pageContext}</Heading>
         <Formik
             initialValues={{title: '', content: '', articleUrl: '', twitterName: '', created: ''}}
-            onSubmit = {(values) => {
+            validate={values => {
+                const errors = {};
+                if (!values.title) {
+                    errors.title = 'Title required';
+                }
+                if (!values.content) {
+                    errors.content = 'Content required';
+                }
+                if ((pageContext === 'twitters') && !values.twitterName) {
+                    errors.twitterName = 'Twitter name required';
+                }
+                if ((pageContext === 'articles') &&!values.articleUrl) {
+                    errors.articleUrl = 'Article url required';
+                }
+                return errors;
+            }}
+            onSubmit = {(values, { setSubmitting }) => {
+                const today = new Date();
+                values.created = `created at ${  today.getHours()  }:${  today.getMinutes()  }:${  today.getSeconds()}`;
                 addItem(pageContext, values);
+                setSubmitting(false);
                 handleClose();
             }}
         >
@@ -61,6 +89,7 @@ const NewItemBar = ({pageContext, isVisible, addItem, handleClose}) => (
                         value={values.title}
                         placeholder="title"
                     />
+                    { errors.title && <StyledParagraph>{errors.title && touched.title && errors.title}</StyledParagraph> }
                     { pageContext === 'twitters' &&
                         <StyledInput
                             type="text"
@@ -71,6 +100,7 @@ const NewItemBar = ({pageContext, isVisible, addItem, handleClose}) => (
                             placeholder="Account Name eg. dan_abramov"
                         />
                     }
+                    { errors.twitterName && <StyledParagraph>{errors.twitterName && touched.twitterName && errors.twitterName}</StyledParagraph> }
                     { pageContext === 'articles' &&
                         <StyledInput
                             type="text"
@@ -81,6 +111,7 @@ const NewItemBar = ({pageContext, isVisible, addItem, handleClose}) => (
                             placeholder="Article link"
                         />
                     }
+                    { errors.articleUrl && <StyledParagraph>{errors.articleUrl && touched.articleUrl && errors.articleUrl}</StyledParagraph> }
                     <StyledTextarea
                         as="textarea"
                         name="content"
@@ -89,12 +120,11 @@ const NewItemBar = ({pageContext, isVisible, addItem, handleClose}) => (
                         value={values.content}
                         placeholder="Content"
                     />
-                    <Button type="submit" activecolor={pageContext}>Add item</Button>
+                    { errors.content && <StyledParagraph>{errors.content && touched.content && errors.content}</StyledParagraph> }
+                    <StyledButton type="submit" disabled={isSubmitting} activecolor={pageContext}>Add item</StyledButton>
                 </StyledForm>
             )}
-
         </Formik>
-
     </StyledWrapper>
 );
 
