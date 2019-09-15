@@ -6,5 +6,6 @@ export const routes = {
     note: '/notes/:id',
     twitter: '/twitters/:id',
     article: '/articles/:id',
-    login: '/login'
+    login: '/login',
+    register: '/register'
 };
