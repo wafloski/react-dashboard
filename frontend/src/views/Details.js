@@ -1,63 +1,58 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import DetailsTemplate from "templates/DetailsTemplate";
-import { routes } from 'routes';
+// import PropTypes from 'prop-types';
+import DetailsTemplate from 'templates/DetailsTemplate';
+import withContext from 'hoc/withContext';
+import { connect } from 'react-redux';
+import axios from 'axios';
 
 class Details extends Component {
-
-    // eslint-disable-next-line react/state-in-constructor
     state = {
-        pageType: 'notes'
-    };
-
-    componentDidMount() {
-        const { match } = this.props;
-
-        switch(match.path) {
-            case routes.note:
-                this.setState({ pageType: 'notes'});
-                break;
-            case routes.twitter:
-                this.setState({ pageType: 'twitters'});
-                break;
-            case routes.article:
-                this.setState({ pageType: 'articles'});
-                break;
-            default:
-                console.log("something went wrong");
+        activeItem: {
+            title: '',
+            content: '',
+            articleUrl: '',
+            twitterName: ''
         }
     };
 
-    render () {
-        const testArticle = {
-            id: 1,
-            title: 'Wake me up when Vue ends',
-            content:
-                'Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus, tempora quibusdam natus modi tempore esse adipisci, dolore odit animi',
-            twitterName: 'javascript',
-            articleUrl: 'https://www.youtube.com/watch?v=FWDXwrgdm9w',
-            created: '1 day',
-        };
+    componentDidMount() {
+        if(this.props.activeItem) {
+            const [ activeItem ] = this.props.activeItem;
+            this.setState({
+                activeItem
+            });
+        } else {
+            const { id } = this.props.match.params;
+            axios
+                .get(`http://localhost:9000/api/note/${id}`)
+                .then(({data}) => {
+                    this.setState({ activeItem: data })
+                })
+                .catch(err => console.log(err));
+        }
+    }
 
-        const { pageType } = this.state;
+    render () {
+        const { activeItem }  = this.state;
 
         return (
             <DetailsTemplate
-                pageType={pageType}
-                title={testArticle.title}
-                created={testArticle.created}
-                content={testArticle.content}
-                articleUrl={testArticle.articleUrl}
-                twitterName={testArticle.twitterName}
+                title={activeItem.title}
+                content={activeItem.content}
+                articleUrl={activeItem.articleUrl}
+                twitterName={activeItem.twitterName}
             />
-        )
+        );
     }
 }
 
-Details.propTypes = {
-    match: PropTypes.shape({
-        path: PropTypes.string.isRequired,
-    }).isRequired,
+const mapStateToProps = (state, ownProps) => {
+    if(state[ownProps.pageContext]) {
+        return {
+            activeItem: state[ownProps.pageContext].filter(item => item._id === ownProps.match.params.id)
+        }
+    }
+    return {};
 };
 
-export default Details;
+export default withContext(connect(mapStateToProps)(Details));

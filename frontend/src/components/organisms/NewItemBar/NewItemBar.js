@@ -54,7 +54,7 @@ const NewItemBar = ({pageContext, isVisible, addItem, handleClose}) => (
     <StyledWrapper isVisible={isVisible} activecolor={pageContext}>
         <Heading big>Create new {pageContext}</Heading>
         <Formik
-            initialValues={{title: '', content: '', articleUrl: '', twitterName: '', created: ''}}
+            initialValues={{title: '', content: '', articleUrl: '', twitterName: ''}}
             validate={values => {
                 const errors = {};
                 if (!values.title) {
@@ -72,8 +72,6 @@ const NewItemBar = ({pageContext, isVisible, addItem, handleClose}) => (
                 return errors;
             }}
             onSubmit = {(values, { setSubmitting }) => {
-                const today = new Date();
-                values.created = `created at ${  today.getHours()  }:${  today.getMinutes()  }:${  today.getSeconds()}`;
                 addItem(pageContext, values);
                 setSubmitting(false);
                 handleClose();

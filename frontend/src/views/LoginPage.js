@@ -5,11 +5,10 @@ import AuthTemplate from 'templates/AuthTemplate';
 import Heading from 'components/atoms/Heading/Heading';
 import Input from 'components/atoms/Input/Input';
 import Button from 'components/atoms/Button/Button';
-import { Link } from 'react-router-dom';
+import { Link , Redirect} from 'react-router-dom';
 import { routes } from 'routes';
 import { connect } from "react-redux";
 import { authenticate as authenticateAction } from "../actions";
-import { Redirect } from 'react-router-dom';
 
 const StyledForm = styled(Form)`
   display: flex;
@@ -19,7 +18,7 @@ const StyledForm = styled(Form)`
 `;
 
 const StyledInput = styled(Input)`
-  margin: 0 0 30px 0;
+  margin: 0 0 30px 0; 
   height: 40px;
   width: 300px;
 `;

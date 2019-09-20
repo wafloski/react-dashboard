@@ -81,7 +81,6 @@ const DetailsTemplate = ({ pageContext, title, content, created, articleUrl, twi
 DetailsTemplate.propTypes = {
     pageContext: PropTypes.string.isRequired,
     title: PropTypes.string,
-    created: PropTypes.string,
     content: PropTypes.string,
     articleUrl: PropTypes.string,
     twitterName: PropTypes.string,
@@ -89,7 +88,6 @@ DetailsTemplate.propTypes = {
 
 DetailsTemplate.defaultProps = {
     title: '',
-    created: '',
     content: '',
     articleUrl: '',
     twitterName: '',
