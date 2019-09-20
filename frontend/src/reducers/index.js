@@ -4,7 +4,7 @@ import {
     REMOVE_ITEM_SUCCESS,
     AUTH_SUCCESS,
     FETCH_REQUEST,
-    FETCH_SUCCESS
+    FETCH_SUCCESS, ADD_ITEM_SUCCESS
 } from "../actions";
 
 const initialState = {
@@ -18,12 +18,12 @@ const rootReducer = (state = initialState, action) => {
                 ...state,
                 userID: action.payload.data._id
             };
-        case ADD_ITEM:
+        case ADD_ITEM_SUCCESS:
             return {
                 ...state,
                 [action.payload.itemType]: [
                     ...state[action.payload.itemType],
-                    action.payload.item
+                    action.payload.data
                 ]
             };
         case REMOVE_ITEM_SUCCESS:
